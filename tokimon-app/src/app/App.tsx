@@ -1,12 +1,11 @@
 import { useState } from "react";
 import { StarterPicker } from "../components/StarterPicker";
 import { Wanderer } from "../components/Wanderer";
-import type { ShapeKind } from "../domain/ShapeKind";
 import type { Point } from "../motion/randomTarget";
 
 type AppState =
   | { phase: "selection" }
-  | { phase: "wandering"; kind: ShapeKind; startAt: Point };
+  | { phase: "wandering"; petId: string; startAt: Point };
 
 export function App() {
   const [state, setState] = useState<AppState>({ phase: "selection" });
@@ -19,12 +18,12 @@ export function App() {
       />
       {state.phase === "selection" ? (
         <StarterPicker
-          onPick={(kind, startAt) =>
-            setState({ phase: "wandering", kind, startAt })
+          onPick={(petId, startAt) =>
+            setState({ phase: "wandering", petId, startAt })
           }
         />
       ) : (
-        <Wanderer kind={state.kind} startAt={state.startAt} />
+        <Wanderer petId={state.petId} startAt={state.startAt} />
       )}
     </>
   );

@@ -1,16 +1,18 @@
-import { ShapeView } from "./ShapeView";
-import type { ShapeKind } from "../domain/ShapeKind";
-import { defaultColor } from "../domain/shapeDefaults";
+import { PetView } from "./PetView";
+import { findPet } from "../domain/petCatalog";
 import { SHAPE_PX, type Point } from "../motion/randomTarget";
 import { useWander } from "../motion/useWander";
 
 type Props = {
-  kind: ShapeKind;
+  petId: string;
   startAt?: Point;
 };
 
-export function Wanderer({ kind, startAt }: Props) {
+export function Wanderer({ petId, startAt }: Props) {
   const target = useWander(startAt);
+  const pet = findPet(petId);
+  if (!pet) return null;
+
   return (
     <div
       style={{
@@ -27,7 +29,7 @@ export function Wanderer({ kind, startAt }: Props) {
         zIndex: 1,
       }}
     >
-      <ShapeView kind={kind} size={SHAPE_PX} color={defaultColor(kind)} />
+      <PetView pet={pet} size={SHAPE_PX} />
     </div>
   );
 }

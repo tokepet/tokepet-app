@@ -14,7 +14,7 @@ fn main() {
         ])
         .setup(|app| {
             TransparentWindow::new("main", "TokiMon")
-                .with_size(480.0, 360.0)
+                .with_size(240.0, 80.0)
                 .with_transparent(true)
                 .with_always_on_top(true)
                 .with_decorations(false)
